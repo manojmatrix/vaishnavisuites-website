@@ -1,0 +1,673 @@
+/* --- 1. Global Reset & Typography --- */
+:root {
+    /* Primary Color: Professional Blue/Teal */
+    --primary-color: #0077b6; 
+    /* Secondary Color: Dark Navy/Black for text */
+    --secondary-color: #03045e;
+    /* Accent Color: Lighter Blue for contrast/hovers */
+    --accent-color: #00b4d8;
+    /* Background Color: Light Gray/Off-White */
+    --background-color: #f8f9fa;
+    /* White for text/backgrounds */
+    --white: #ffffff;
+    /* Box Shadow for depth */
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--secondary-color);
+    background-color: var(--background-color);
+    scroll-behavior: smooth;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+h1, h2, h3 {
+    margin-bottom: 0.5em;
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+p.section-subtitle {
+    text-align: center;
+    color: #6c757d;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* --- 2. Header & Navigation --- */
+.main-header {
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px; /* Adjust as needed for your logo */
+    margin-right: 10px;
+}
+
+.logo a {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    padding: 10px 15px;
+    display: block;
+    font-weight: 600;
+    transition: color 0.3s, background-color 0.3s;
+    border-radius: 4px;
+}
+
+.main-nav ul li a:hover {
+    color: var(--white);
+    background-color: var(--primary-color);
+}
+
+.menu-toggle {
+    display: none; /* Hidden on desktop */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+/* --- 3. Buttons --- */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.primary-btn:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background-color: var(--white);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    margin-top: 30px;
+}
+
+.secondary-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.tertiary-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 8px 20px;
+}
+
+.tertiary-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+/* --- 4. Hero Section (Home) --- */
+/* --- 4. Hero Section (Home) - UPDATED FOR CAROUSEL --- */
+.hero-section {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* Crucial for hiding parts of the slides */
+}
+
+/* CAROUSEL STYLES */
+.carousel-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    width: 400%; /* If you have 4 slides, it needs 400% width */
+    height: 100%;
+    transition: transform 0.8s ease-in-out; /* Smooth transition */
+}
+
+.slide {
+    width: 25%; /* Each slide takes 1/4th of the track */
+    flex-shrink: 0; /* Prevents slides from shrinking */
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* HERO CONTENT OVERLAY */
+.hero-content {
+    z-index: 10;
+    position: relative;
+    padding: 20px;
+    color: var(--white);
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay for text readability */
+    border-radius: 8px;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    color: var(--white);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+/* CAROUSEL DOTS */
+.carousel-dots {
+    position: absolute;
+    bottom: 20px;
+    z-index: 15; /* Above the images */
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background-color: var(--primary-color);
+    border: 2px solid var(--white);
+    transform: scale(1.2);
+}
+
+/* Add media query adjustments if necessary for smaller screens */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay for text readability */
+}
+
+.hero-content {
+    z-index: 10;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    color: var(--white);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+
+/* --- 5. General Section Styling --- */
+.section {
+    padding: 80px 0;
+}
+
+.section:nth-child(even) {
+    background-color: var(--white);
+}
+
+/* --- 6. Booking/Services Section --- */
+.booking-section {
+    text-align: center;
+}
+
+.services-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.service-card {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    flex: 1;
+    max-width: 350px;
+    transition: transform 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-card i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* --- 7. About Us Section --- */
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.about-image-placeholder {
+    flex: 1;
+    max-width: 50%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+.about-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-text {
+    flex: 1;
+    max-width: 50%;
+}
+
+.about-text h2 {
+    text-align: left;
+}
+
+/* --- 8. Gallery Section --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.05);
+}
+
+/* --- 9. Location Section --- */
+.location-details {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.address-card {
+    flex: 1;
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    height: fit-content;
+}
+
+.address-card h3 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.map-placeholder {
+    flex: 2;
+    min-height: 450px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+.map-placeholder iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* --- 10. Contact Us Section --- */
+.contact-info-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.contact-card {
+    text-align: center;
+    flex: 1;
+    padding: 20px;
+}
+
+.contact-card i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: grid;
+    gap: 20px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+/* --- 11. Footer --- */
+.main-footer {
+    background-color: var(--secondary-color);
+    color: #b0c4de;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--white);
+}
+
+.social-links a {
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-left: 15px;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+}
+
+/* --- 12. Media Queries (Responsiveness) --- */
+@media (max-width: 992px) {
+    .header-content {
+        padding: 15px 20px;
+    }
+    .main-nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px; /* Below the header */
+        left: 0;
+        background-color: var(--white);
+        box-shadow: var(--shadow);
+    }
+    .main-nav.active {
+        display: flex;
+    }
+    .main-nav ul {
+        flex-direction: column;
+    }
+    .main-nav ul li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
+    .menu-toggle {
+        display: block;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .services-grid {
+        flex-direction: column;
+    }
+    .service-card {
+        max-width: 100%;
+    }
+
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .about-image-placeholder, .about-text {
+        max-width: 100%;
+    }
+    .about-text h2 {
+        text-align: center;
+    }
+    .about-text .btn {
+        margin: 20px auto 0;
+        display: block;
+    }
+    
+    .location-details {
+        flex-direction: column;
+    }
+    .map-placeholder {
+        min-height: 350px;
+    }
+    
+    .contact-info-grid {
+        flex-direction: column;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .social-links a {
+        margin: 0 10px;
+    }
+}
+/* --- NEW SECTION: Suites & Rooms --- */
+.suites-rooms-section {
+    background-color: var(--white);
+}
+
+.room-highlight {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-top: 40px;
+    flex-wrap: wrap; /* Ensures responsiveness */
+}
+
+.room-image {
+    flex: 1;
+    min-width: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.room-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.room-details {
+    flex: 1.5;
+    min-width: 300px;
+}
+
+.room-details h3 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.room-details p {
+    margin-bottom: 25px;
+    line-height: 1.8;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Two columns on desktop */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.05rem;
+    color: var(--secondary-color);
+}
+
+.feature-item i {
+    color: var(--primary-color);
+    margin-right: 10px;
+    font-size: 1.3rem;
+    width: 25px;
+    text-align: center;
+}
+
+/* Responsive adjustments for Suites & Rooms section */
+@media (max-width: 992px) {
+    .room-highlight {
+        flex-direction: column;
+        text-align: center;
+    }
+    .room-image, .room-details {
+        max-width: 100%;
+        min-width: unset;
+    }
+    .room-details h3 {
+        text-align: center;
+    }
+    .room-details .btn {
+        margin: 20px auto 0;
+        display: block;
+    }
+    .features-grid {
+        grid-template-columns: 1fr; /* Stack features on small screens */
+        text-align: left;
+    }
+    .feature-item {
+        justify-content: flex-start;
+    }
+}

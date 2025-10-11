@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Stay - Vaishnavi Suites</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Add specific styling for the booking page */
+        .booking-page-hero {
+            background-color: var(--background-color);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .booking-links-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two equal columns */
+            gap: 40px;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .booking-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .booking-card .btn {
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .booking-links-grid {
+                grid-template-columns: 1fr; /* Stack buttons vertically on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-content">
+            <div class="logo">
+                <img src="logo.jpg" alt="Vaishnavi Suites Logo">
+                <a href="index.html">Vaishnavi Suites</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="booking.html" class="active-link">Book Now</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#location">Location</a></li>
+                    <li><a href="index.html#contact">Contact Us</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="section booking-page-hero">
+        <div class="container">
+            <h2>Reserve Your Comfort</h2>
+            <p class="section-subtitle">Choose your preferred platform below to check real-time availability and secure the best rates for your stay at Vaishnavi Suites.</p>
+
+            <div class="booking-links-grid">
+                
+                <div class="booking-card">
+                    <i class="fas fa-hotel fa-3x" style="color:#003580; margin-bottom: 10px;"></i>
+                    <h3>Booking.com</h3>
+                    <p>Access our profile for customer reviews and official listings.</p>
+                    <a href="https://www.booking.com/hotel/in/vaishnavi-suites.html?msockid=239364cd875a629e24cf724c86d563cd" target="_blank" class="btn primary-btn">
+                        Book on Booking.com
+                    </a>
+                </div>
+
+                <div class="booking-card">
+                    <i class="fas fa-plane fa-3x" style="color:#0077b6; margin-bottom: 10px;"></i>
+                    <h3>MakeMyTrip</h3>
+                    <p>Find special deals and exclusive packages for Indian travelers.</p>
+                    <a href="https://www.makemytrip.com/hotels/vaishnavi_suites-details-bangalore.html" target="_blank" class="btn primary-btn">
+                        Book on MakeMyTrip
+                    </a>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px;">Need assistance with your booking? <a href="index.html#contact" style="color:var(--primary-color); font-weight: 600;">Contact us directly.</a></p>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-logo">Vaishnavi Suites</div>
+            <p>© 2025 Vaishnavi Suites. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
