@@ -2,11 +2,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.querySelector('.main-nav');
     const navLinks = document.querySelectorAll('.main-nav a');
+    const contactForm = document.querySelector('.contact-form');
+    // Assuming you have an element with ID 'contact-message' to show form success/error messages.
+    const messageBox = document.getElementById('contact-message'); 
 
     // 1. Mobile Menu Toggle Functionality
     if (menuToggle && mainNav) {
         menuToggle.addEventListener('click', function() {
             mainNav.classList.toggle('active');
+            // Toggle icon for better user experience
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
         });
     }
 
@@ -16,95 +23,87 @@ document.addEventListener('DOMContentLoaded', function() {
             // Check if the menu is open and close it after clicking
             if (mainNav.classList.contains('active')) {
                 mainNav.classList.remove('active');
+                // Reset icon
+                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
             }
         });
     });
 
     // 3. Simple Form Submission Handling (Prevent default for demonstration)
-    const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your message! We will get back to you shortly. (This is a demonstration; no actual email was sent.)');
-            contactForm.reset();
-        });
-    }
-});
-document.addEventListener('DOMContentLoaded', function() {
-    // Existing code for navigation toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mainNav = document.querySelector('.main-nav');
-    const navLinks = document.querySelectorAll('.main-nav a');
-
-    if (menuToggle && mainNav) {
-        menuToggle.addEventListener('click', function() {
-            mainNav.classList.toggle('active');
-        });
-    }
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (mainNav.classList.contains('active')) {
-                mainNav.classList.remove('active');
+            // Using the messageBox element instead of alert()
+            if (messageBox) {
+                messageBox.textContent = 'Thank you for your message! We will get back to you shortly.';
+                setTimeout(() => messageBox.textContent = '', 5000);
             }
-        });
-    });
-
-    const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you shortly. (This is a demonstration; no actual email was sent.)');
             contactForm.reset();
         });
     }
 
-    // --- NEW CAROUSEL LOGIC ---
-    const track = document.querySelector('.carousel-track');
-    const slides = document.querySelectorAll('.slide');
-    const dotsContainer = document.querySelector('.carousel-dots');
-    const slideWidth = slides[0] ? slides[0].offsetWidth : 0;
-    let currentIndex = 0;
-    const slideCount = slides.length;
-    const intervalTime = 4000; // Change slide every 4 seconds
+    // --- Slideshow Functions ---
 
-    // 1. Create Dots for navigation
-    slides.forEach((slide, index) => {
-        const dot = document.createElement('span');
-        dot.classList.add('dot');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => moveToSlide(index));
-        dotsContainer.appendChild(dot);
-    });
+    /**
+     * Handles the fading transition logic for any slideshow container.
+     * @param {string} containerId The ID of the parent container (e.g., 'hero-slideshow-container').
+     * @param {string} slideClassName The class name applied to the individual image slides (e.g., 'hero-slide-image').
+     * @param {number} interval The time in milliseconds between slides.
+     */
+    function startSlideshow(containerId, slideClassName, interval) {
+        const slideshowContainer = document.getElementById(containerId);
+        if (slideshowContainer) {
+            // Use querySelectorAll on the container to find only relevant slides
+            const slides = slideshowContainer.querySelectorAll('.' + slideClassName);
+            let currentSlide = 0;
 
-    const dots = document.querySelectorAll('.dot');
+            // Important: Make sure at least one slide exists before starting
+            if (slides.length === 0) {
+                 console.warn(`Slideshow container ${containerId} found, but no slides with class ${slideClassName} found.`);
+                 return;
+            }
 
-    // 2. Function to move the carousel
-    function moveToSlide(index) {
-        if (index < 0) {
-            index = slideCount - 1; // Loop to the end
-        } else if (index >= slideCount) {
-            index = 0; // Loop back to the start
+            function nextSlide() {
+                if (slides.length <= 1) return; // No need to cycle if 0 or 1 slide
+
+                // 1. Remove active class from the current slide (fades out)
+                slides[currentSlide].classList.remove('active');
+                
+                // 2. Calculate the index of the next slide (loops back to 0)
+                currentSlide = (currentSlide + 1) % slides.length;
+                
+                // 3. Add active class to the next slide (fades in due to CSS transition)
+                slides[currentSlide].classList.add('active');
+            }
+
+            // Ensure the first slide is active on initial load
+            slides[0].classList.add('active');
+            
+            // Start the automatic slideshow
+            setInterval(nextSlide, interval);
+        } else {
+             console.warn(`Slideshow container with ID ${containerId} not found.`);
         }
-
-        const amountToMove = -index * 100; // Move by 100% of container width
-        track.style.transform = `translateX(${amountToMove / slideCount}%)`;
-
-        // Update active dot
-        dots.forEach(dot => dot.classList.remove('active'));
-        dots[index].classList.add('active');
-
-        currentIndex = index;
     }
 
-    // 3. Auto-scrolling interval
-    setInterval(() => {
-        currentIndex++;
-        moveToSlide(currentIndex);
-    }, intervalTime);
+    // 4. Hero Section Slideshow Logic (Runs every 7 seconds for a slow, premium look)
+    startSlideshow('hero-slideshow-container', 'hero-slide-image', 7000); 
 
-    // Initial check to prevent issues if there are no slides
-    if (slideCount > 0) {
-        moveToSlide(0);
-    }
+    // 5. About Section Slideshow Logic (Runs every 5 seconds, assuming it uses 'about-slideshow-container')
+    startSlideshow('about-slideshow-container', 'slideshow-image', 5000); 
 });
+const track = document.querySelector('.room-carousel .carousel-track');
+const slides = Array.from(track.children);
+let currentIndex = 0;
+
+function moveToSlide(index) {
+  const slideWidth = slides[0].getBoundingClientRect().width;
+  track.style.transform = `translateX(-${slideWidth * index}px)`;
+}
+
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % slides.length;
+  moveToSlide(currentIndex);
+}, 3000); // Change every 3 seconds
