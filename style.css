@@ -29,7 +29,9 @@ body {
     background-color: var(--background-color);
     scroll-behavior: smooth;
 }
-
+/* ===================================== */
+/* 1. Desktop & Mobile foundation notes  */
+/* ===================================== */
 .container {
     width: 90%;
     max-width: 1200px;
@@ -242,11 +244,11 @@ section {
 
 /* SLIDESHOW CONTAINER STYLES (Used in About Section) */
 .about-image {
-    flex: 1;
-    /* Container for the slideshow */
+    /* Desktop: take half the content area; mobile rules override via media queries */
+    flex: 0 0 50%;
+    max-width: 50%;
     position: relative;
-    max-width: 100%;
-    height: 300px; /* Fixed height for visual consistency */
+    height: 400px; /* Desktop height for slideshow */
     border-radius: 8px;
     box-shadow: var(--shadow);
     overflow: hidden;
@@ -259,77 +261,16 @@ section {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0; /* Hidden by default */
-    transition: opacity 1.2s ease-in-out; /* Smooth fading transition */
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
 }
-
 .slideshow-image.active {
-    opacity: 2; /* Highlighted (visible) photo */
+    opacity: 1;
 }
 /* END SLIDESHOW STYLES */
 
 /* --- 6. Rooms Section (Static Display) --- */
-/* NOTE: The current index.html uses .room-info, .room-image, and .carousel-slide which matches the structure of the last complete style.css you were given. */
-.rooms {
-    background-color: var(--background-color);
-}
-
-.carousel-container {
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-    border-radius: 8px;
-    box-shadow: var(--shadow);
-}
-
-.carousel-slide {
-    display: flex;
-    background-color: var(--white);
-}
-
-.room-info {
-    flex: 1;
-    padding: 40px;
-}
-
-.room-info h3 {
-    color: var(--primary-color);
-    font-size: 2rem;
-    margin-top: 0;
-}
-
-.room-info ul {
-    list-style: none;
-    margin-top: 15px;
-    /* Grid layout for features in two columns on desktop */
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px 10px;
-}
-
-.room-info ul li {
-    padding: 5px 0;
-    display: flex;
-    align-items: flex-start;
-}
-
-.room-info ul li i {
-    color: var(--primary-color);
-    margin-right: 10px;
-    margin-top: 3px;
-}
-
-.room-image {
-    flex: 1;
-}
-
-.room-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
+/* (Canonical room styles are defined later in this file under the room-showcase section.) */
 /* --- 7. Location Section --- */
 .location-content {
     text-align: center;
@@ -502,6 +443,26 @@ section {
         grid-template-columns: 1fr;
         gap: 5px;
     }
+
+    /* Ensure About slideshow is visible when stacking at 900px and below */
+    .about-image {
+        flex: 0 0 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9; /* Modern browsers */
+        min-height: 200px; /* Fallback so it doesn't collapse on some devices */
+        overflow: hidden;
+        order: -1; /* Place image above text when stacked, optional */
+    }
+
+    .about-image .slideshow-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
 
 @media (max-width: 768px) {
@@ -583,60 +544,155 @@ section {
         grid-template-columns: 1fr; 
     }
 }
+/* ===================================== */
+/* 1. General & Desktop Styles           */
+/* (For screens larger than 768px)       */
+/* ===================================== */
+
 .room-showcase {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
+/* Style for the main intro text */
 .room-intro {
-  text-align: center;
-  margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 40px;
 }
 
+.room-intro h2 {
+    font-size: 2.5em;
+    color: #002D62; /* Example dark blue for elegance */
+    margin-bottom: 10px;
+}
+
+.room-intro p {
+    font-size: 1.1em;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Container for the image carousel and features (Desktop: Side-by-Side) */
 .room-content {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  align-items: flex-start;
+    display: flex;
+    gap: 40px; /* Space between the image and features */
+    align-items: flex-start; /* Aligns items to the top */
 }
 
+/* Image Carousel Styles (Desktop: Takes about 60% of width) */
 .room-carousel {
-  flex: 1;
-  max-width: 500px;
-  overflow: hidden;
+    flex: 0 0 60%; /* Take 60% of the container width */
+    max-width: 60%;
+    overflow: hidden; /* Important for hiding extra slides */
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .carousel-track {
-  display: flex;
-  transition: transform 0.5s ease;
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    /* Placeholder size, adjust based on your JS carousel logic */
 }
 
 .slide {
-  min-width: 100%;
+    min-width: 100%; /* Each slide takes the full width of the carousel container */
 }
 
 .slide img {
-  width: 100%;
-  border-radius: 10px;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
+/* Room Features Styles (Desktop: Takes about 40% of width) */
 .room-info {
-  flex: 1;
-  max-width: 500px;
+    flex: 1; /* Takes the remaining space */
+    padding-top: 20px; /* Align content nicely with the carousel */
+}
+
+.room-info h3 {
+    font-size: 1.8em;
+    color: #007bff; /* Example accent color */
+    margin-bottom: 15px;
 }
 
 .room-info ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
 }
 
-.room-info li {
-  margin-bottom: 10px;
-  font-size: 16px;
+.room-info ul li {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 1em;
+    border-bottom: 1px solid #eee;
 }
 
-.room-info i {
-  margin-right: 10px;
-  color: #007bff;
+.room-info ul li i {
+    color: #007bff; /* Icon color */
+    margin-right: 10px;
+    width: 20px; /* Ensures all icons are aligned */
+    text-align: center;
 }
+
+
+/* ===================================== */
+/* 2. Mobile Styles (Media Query)        */
+/* (For screens 768px and smaller)       */
+/* ===================================== */
+
+@media (max-width: 768px) {
+
+    /* Stack the image carousel and features vertically */
+    .room-content {
+        flex-direction: column; /* Stack items vertically */
+        gap: 20px; /* Reduce space between stacked elements */
+    }
+
+    /* Make the Image Carousel prominent (Big Image on Top) */
+    .room-carousel {
+        /* Reset flex properties */
+        flex: 0 0 100%;
+        max-width: 100%; /* Take up the full content width */
+        margin: 0; /* Remove side margins if any */
+        /* Increase size for a 'big' look on mobile */
+        height: 300px; /* Fixed height for a good visual size on mobile */
+    }
+
+    .slide img {
+        /* Ensure the image covers the fixed height without distortion */
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* This makes the image cover the area, cropping if necessary */
+    }
+
+    /* Features below the image */
+    .room-info {
+        padding-top: 0; /* Remove top padding to sit right under the image */
+        padding: 0 15px; /* Add slight side padding for better readability */
+    }
+
+    .room-intro h2 {
+        font-size: 1.8em; /* Make the heading smaller on mobile */
+    }
+
+    .room-info h3 {
+        text-align: center; /* Center the feature heading */
+        margin-top: 10px;
+    }
+    
+    .room-info ul li {
+        font-size: 0.95em;
+    }
+    
+    .btn {
+        width: 100%; /* Make the button full width */
+        text-align: center;
+    }
+}
+
